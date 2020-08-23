@@ -1,6 +1,7 @@
 const { prompt } = require('inquirer')
 const { join } = require('path')
 const cTable = require('console.table')
+const db = require('../db')
 const Employees = require('./Employees')
 const Roles = require('./Roles')
 const Departments = require('./Departments')
