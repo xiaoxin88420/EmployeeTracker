@@ -13,7 +13,7 @@ const Departments = require('./routes/Departments')
 const Managers = require('./routes/Managers')
 
 
-const questions = () => {
+const Questions = () => {
   prompt([
     {
       type: 'list',
@@ -41,6 +41,6 @@ const questions = () => {
     .catch(err => { console.log(err) })
 }
 
-questions()
+Questions()
 
-module.exports = questions
+module.exports = Questions

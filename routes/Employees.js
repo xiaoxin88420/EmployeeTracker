@@ -7,7 +7,8 @@ const db = mysql.createConnection({
   password: '621120?Jfjjfz',
   database: 'employee_db'
 })
-const questions = require('../index.js')
+
+const Questions = require('../index')
 
 //Create a function to manage employee tables
 const Employees = () => {
@@ -241,7 +242,7 @@ const Employees = () => {
           type: 'list',
           name: 'name',
           message: "Which employee would you like to choose ?",
-          choices: emplpoyees
+          choices: employees
         },
         {
           type: 'list',
@@ -268,11 +269,6 @@ const Employees = () => {
     })
   }
 
-
-
-
-
-
   //choose what action to take
   prompt([
     {
@@ -294,7 +290,7 @@ const Employees = () => {
           Delete()
           break;
         case 'Main Menu':
-          questions()
+          Questions()
           break;
       }
     })

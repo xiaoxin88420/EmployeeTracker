@@ -8,7 +8,7 @@ const db = mysql.createConnection({
   database: 'employee_db'
 })
 
-const questions = require('../index.js')
+const Questions = require('../index')
 
 const Managers = () => {
 
@@ -78,7 +78,7 @@ const Managers = () => {
         })
         .catch(err => console.log(err))
     })
-
+  }
 
     prompt([
       {
@@ -97,11 +97,11 @@ const Managers = () => {
             Delete()
             break;
           case 'Main Menu':
-            questions()
+            Questions()
             break;
         }
       })
       .catch(err => { console.log(err) })
-  }
+  
 }
   module.exports = Managers

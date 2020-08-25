@@ -7,7 +7,7 @@ const db = mysql.createConnection({
   password: '621120?Jfjjfz',
   database: 'employee_db'
 })
-const questions = require('../index.js')
+const Questions = require('../index')
 
 
 const Departments = () => {
@@ -98,7 +98,7 @@ const Departments = () => {
           Delete()
           break;
         case 'Main Menu':
-          questions()
+          Questions()
           break;
       }
     })
