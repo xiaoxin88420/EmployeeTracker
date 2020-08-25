@@ -1,11 +1,16 @@
 const { prompt } = require('inquirer')
-const { join } = require('path')
-const cTable = require('console.table')
-const db = require('../db')
-const Employees = require('./Employees')
-const Roles = require('./Roles')
-const Departments = require('./Departments')
-const Managers = require('./Managers')
+require('console.table')
+const mysql = require('mysql2')
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '621120?Jfjjfz',
+  database: 'employee_db'
+})
+const Employees = require('./routes/Employees')
+const Roles = require('./routes/Roles')
+const Departments = require('./routes/Departments')
+const Managers = require('./routes/Managers')
 
 
 const questions = () => {
@@ -37,3 +42,5 @@ const questions = () => {
 }
 
 questions()
+
+module.exports = questions

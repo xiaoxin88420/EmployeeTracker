@@ -1,7 +1,25 @@
+const { prompt } = require('inquirer')
+require('console.table')
+const mysql = require('mysql2')
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '621120?Jfjjfz',
+  database: 'employee_db'
+})
+const questions = require('../index.js')
+
 
 const Departments = () => {
 
-  console.table()
+  const viewDepartments = () => {
+    db.query('SELECT * FROM department', (err, departments) => {
+      if (err) { console.log(err) }
+      console.table(departments)
+    })
+  }
+
+  viewDepartments()
 
   const Add = () => {
     prompt([
@@ -12,61 +30,54 @@ const Departments = () => {
       }
     ])
       .then(res => {
-        console.table()
-        Departments()
+        db.query('INSERT INTO department SET ?', res, (err) => {
+          if (err) { console.log(err) }
+          console.log('Department Created!')
+          Departments()
+        })
       })
       .catch(err => { console.log(err) })
-   }
+  }
 
-  const Update = () => {
-    prompt([
-      {
-        type: 'list',
-        name: 'choose',
-        message: "Which department would you like to update ?",
-        choices: []
-      },
-      {
-        type: 'input',
-        name: 'name',
-        message: "What is the new name of the department ?"
-      }
-    ])
-      .then(res => {
-        console.table()
-        Departments()
-      })
-      .catch(err => { console.log(err) })
-   }
+  const Delete = () => {
 
-  const Delete = () => { 
+    db.query('SELECT * FROM department', (err, departments) => {
+      if (err) { console.log(err) }
+
+      departments = departments.map(department => ({
+        name: department.name,
+        value: department.id
+      }))
+
     prompt([
       {
         type: 'list',
         name: 'name',
-        message: "Which department would you like to delete ?"
-        choices: []
+        message: "Which department would you like to delete ?",
+        choices: departments
       },
       {
         type: 'list',
         name: 'final',
-        message: "Please confirm to delete."
+        message: "Please confirm to delete.",
         choices: ["Yes, please delete", "No, please go back"]
       }
     ])
       .then(res => {
         switch (res.final) {
           case "Yes, please delete":
-            db.query('DELETE FROM employee WHERE id = ?', req.params.id, err => {
+            db.query('DELETE FROM department WHERE id = ?', res.name, err => {
               if (err) { console.log(err) }
-            })
-            console.table()
+              Departments()
+            })            
             break
           case "No, please go back":
             Departments()
             break
+        }
         })
       .catch(err => console.log(err))
+    })
   }
 
 
@@ -75,16 +86,13 @@ const Departments = () => {
       type: 'list',
       name: 'action',
       message: "What would you like to do ?",
-      choices: ["Add", "Update", "Delete", "Main Menu"]
+      choices: ["Add", "Delete", "Main Menu"]
     }
   ])
     .then(({ action }) => {
       switch (action) {
         case 'Add':
           Add()
-          break;
-        case 'Update':
-          Update()
           break;
         case 'Delete':
           Delete()
@@ -93,7 +101,7 @@ const Departments = () => {
           questions()
           break;
       }
-  })
+    })
     .catch(err => { console.log(err) })
 }
 

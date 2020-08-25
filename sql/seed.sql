@@ -24,8 +24,8 @@ USE employee_db;
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ('John', 'Doe', 1, 1),
 ('Mike', 'Chan', 2, 2),
-('Ashley', 'Rodrigues', 3, 0),
+('Ashley', 'Rodrigues', 3, NULL),
 ('Kevin', 'Tupik', 4, 1),
-('Malia', 'Brown', 5, 0),
-('Sarah', 'Lourd', 6, 0),
+('Malia', 'Brown', 5, NULL),
+('Sarah', 'Lourd', 6, NULL),
 ('Tom', 'Allen', 7, 3);
